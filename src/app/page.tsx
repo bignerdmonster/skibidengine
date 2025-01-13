@@ -3,15 +3,12 @@ import Link from "next/link";
 export default function HomePage() {
   return (
     <main className="">
-       <div className="min-h-screen bg-gray-100">
-        <header className="bg-white shadow">
+       <div className="min-h-screen">
+        <header className="shadow">
           <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-            <div className="text-2xl font-bold text-gray-800">Skibidengine</div>
+            <div className="text-2xl font-bold text-800">Skibidengine</div>
             <nav className="space-x-4">
-              <a href="#" className="text-gray-700 hover:text-gray-900">Home</a>
-              <a href="#" className="text-gray-700 hover:text-gray-900">About</a>
-              <a href="#" className="text-gray-700 hover:text-gray-900">Services</a>
-              <a href="#" className="text-gray-700 hover:text-gray-900">Contact</a>
+              <a href="#" className="text-700 hover:text-900">Home</a>
             </nav>
           </div>
         </header>
