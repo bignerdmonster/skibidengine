@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@clerk/nextjs": "^6.9.9",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/eslint": "^9.6.1",
     "@types/node": "^22.10.5",
     "@types/react": "^19.0.6",
