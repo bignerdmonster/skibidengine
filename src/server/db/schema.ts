@@ -8,6 +8,7 @@ import {
   pgTableCreator,
   timestamp,
   varchar,
+  text
 } from "drizzle-orm/pg-core";
 
 /**
@@ -27,9 +28,10 @@ export const posts = createTable(
       .notNull(),
     user: varchar("user").notNull(),
     title: varchar("title", {length:256}).notNull(),
-    content: varchar("content").notNull()
-  },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
-  })
+    content: varchar("content").notNull(),
+    comments: text("comments")
+      .array()
+      .notNull()
+      .default(sql`'{}'::text[]`),
+  }
 );

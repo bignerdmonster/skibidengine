@@ -9,7 +9,8 @@ import {
   SignedOut,
   UserButton
 } from '@clerk/nextjs';
-import { User } from "@clerk/nextjs/server";
+import PostButton from "./_components/skibutton";
+
 
 export const metadata: Metadata = {
   title: "skibidengine | a fourm engine",
@@ -30,42 +31,7 @@ export default function RootLayout({
           </div>
           <div className="flex-none mx-10">
             <SignedIn>
-            <button className="btn btn-square btn-ghost">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="inline-block h-5 w-5 stroke-current plus-icon">
-                <defs>
-                    <filter id="dark-shadow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur in="SourceAlpha" stdDeviation="2.5" />
-                        <feOffset dx="2" dy="2" result="offsetblur" />
-                        <feFlood floodColor="rgba(255,255,255,0.3)" />
-                        <feComposite in2="offsetblur" operator="in" />
-                        <feMerge>
-                            <feMergeNode />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                    <filter id="light-shadow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur in="SourceAlpha" stdDeviation="2.5" />
-                        <feOffset dx="2" dy="2" result="offsetblur" />
-                        <feFlood floodColor="rgba(0,0,0,0.3)" />
-                        <feComposite in2="offsetblur" operator="in" />
-                        <feMerge>
-                            <feMergeNode />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                </defs>
-                <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 5v14M5 12h14">
-                </path>
-              </svg>
-            </button>
+            <PostButton className={"btn btn-square btn-ghost"}/>
             <UserButton></UserButton>
             </SignedIn>
             <SignedOut>
