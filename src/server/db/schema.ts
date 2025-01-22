@@ -31,7 +31,6 @@ export const posts = createTable(
     content: varchar("content").notNull(),
     comments: text("comments")
       .array()
-      .notNull()
       .default(sql`'{}'::text[]`),
   }
 );

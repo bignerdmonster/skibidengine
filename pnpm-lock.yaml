@@ -93,6 +93,9 @@ importers:
       require-in-the-middle:
         specifier: ^7.4.0
         version: 7.4.0
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
       tailwindcss:
         specifier: ^3.4.17
         version: 3.4.17

@@ -1,11 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function PostButton({className = ""}) {
   const router = useRouter();
   return (
-      <a href="/newpost"><button className={className} >
+      <Link href="/newpost"><button className={className} >
         <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -40,6 +41,6 @@ export default function PostButton({className = ""}) {
                 d="M12 5v14M5 12h14">
             </path>
         </svg>
-      </button></a>
+      </button></Link>
   );
 }

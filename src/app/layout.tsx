@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import Link from 'next/link';
 import {
   ClerkProvider,
   SignInButton,
@@ -27,12 +28,12 @@ export default function RootLayout({
         <body>
         <div className="navbar bg-base-100">
           <div className="flex-1">
-            <a href="/" className="btn btn-ghost text-xl text-slate-700 dark:text-white">Skibidengine</a>
+            <Link href="/" className="btn btn-ghost text-xl text-slate-700 dark:text-white">Skibidengine</Link>
           </div>
           <div className="flex-none mx-10">
             <SignedIn>
             <PostButton className={"btn btn-square btn-ghost"}/>
-            <UserButton></UserButton>
+            <UserButton/>
             </SignedIn>
             <SignedOut>
               <SignInButton>Sign In</SignInButton>
