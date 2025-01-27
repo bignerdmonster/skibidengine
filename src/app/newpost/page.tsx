@@ -1,5 +1,6 @@
 import Head from "next/head";
-
+import MarkdownEditor from "../_components/editer";
+import {SignedIn, SignedOut, SignInButton} from "@clerk/nextjs";
 export default function Page() {
     return (
         <div>
@@ -10,6 +11,8 @@ export default function Page() {
 
         <main className="mx-auto">
             <h1 className="prose">wsg bruh</h1>
+            <SignedIn><MarkdownEditor/></SignedIn>
+            <SignedOut><SignInButton>Sign In to post!</SignInButton></SignedOut>
         </main>
 
         </div>
