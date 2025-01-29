@@ -22,7 +22,7 @@ export const createTable = pgTableCreator((name) => `skibidengine_${name}`);
 export const posts = createTable(
   "post",
   {
-    id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
+    id: integer("id").primaryKey().generatedByDefaultAsIdentity().notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
