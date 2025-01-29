@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function PostButton({className = ""}) {
-  const router = useRouter();
+  // const router = useRouter(); # no need
   return (
       <Link href="/newpost"><button className={className} >
         <svg
