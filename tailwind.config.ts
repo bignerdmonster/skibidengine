@@ -14,4 +14,14 @@ export default {
     require("@tailwindcss/typography"),
     require("daisyui"),
   ],
+  daisyui:{
+    themes: ["coffee","dark","light"],
+    darkTheme: "coffee",
+    base:true,
+    styled:true,
+    utils:true,
+    prefix:"",
+    logs:true,
+    themeRoot:":root"
+  }
 } satisfies Config;

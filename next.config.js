@@ -3,11 +3,9 @@
  * for Docker builds.
  */
 import "./src/env.js";
-
 /** @type {import("next").NextConfig} */
-const coreConfig = {};
-
-
+const coreConfig = {
+};
 
 
 // Injected content via Sentry wizard below
