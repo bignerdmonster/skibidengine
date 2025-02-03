@@ -40,12 +40,9 @@ const config = withSentryConfig(
     // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
     // side errors will fail.
     // tunnelRoute: "/monitoring",
-    sourcemaps: {
-      deleteSourcemapsAfterUpload: true
-    },
     // Hides source maps from generated client bundles
     hideSourceMaps: true,
-
+    sourcemaps: {disable: true},
     // Automatically tree-shake Sentry logger statements to reduce bundle size
     disableLogger: true,
 

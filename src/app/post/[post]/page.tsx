@@ -1,7 +1,6 @@
-import { useRouter } from "next/router";
+import { useRouter, redirect } from "next/navigation";
 import MarkdownEditor from "~/app/_components/editer";
 import { getPost } from "~/server/queries";
-import { redirect } from "next/navigation";
 import MarkdownRenderer from "~/app/_components/mdRender";
 
 
