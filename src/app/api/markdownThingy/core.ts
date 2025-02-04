@@ -12,7 +12,7 @@ export default async function saveText(tytle: string, conten: string) {
             content: conten
         })
     } else {
-        throw new Error("unauthorized");
+        throw new Error("Unauthorized");
         return null
     }
 }

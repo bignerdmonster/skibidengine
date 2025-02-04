@@ -11,8 +11,10 @@ export default function Page() {
 
         <main className="mx-auto">
             <h1 className="prose">wsg bruh</h1>
-            <SignedIn><MarkdownEditor/></SignedIn>
-            <SignedOut><SignInButton>Sign In to post!</SignInButton></SignedOut>
+            <div className="content-center mx-auto w-4/5 bg-neutral-600">
+                <SignedIn><MarkdownEditor/></SignedIn>
+                <SignedOut><SignInButton>Sign In to post!</SignInButton></SignedOut>
+            </div>
         </main>
 
         </div>

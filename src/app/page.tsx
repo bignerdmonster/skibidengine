@@ -11,7 +11,7 @@ export default async function HomePage() {
           <div key={index} className="pt-20">
             <div className="card w-3/4 px-40 py-10 mx-auto my-105 bg-primary-content">
               <a href={`/post/${post.id}`}>
-              <h1 className="mx-auto text-center text-primary text-xxl pb-10">{post.title}</h1>
+              <h1 className="mx-auto text-center text-primary text-2xl pb-10">{post.title}</h1>
                   <div className="w-full text-bg-secondary bg-secondary p-10 rounded-lg">
                     {MarkdownRenderer(post.content)}
                   </div>
