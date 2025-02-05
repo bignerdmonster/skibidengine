@@ -7,12 +7,14 @@ export default function MarkdownEditor() {
   const [value, setValue] = useState("type your stuff");
   const [val2, setVal2] = useState("Title...");
   return (
-    <div className="mx-auto"> 
-      <div className="container">
-        <input value={val2} onChange={(val) => setVal2(val.target.value)} className="input input-bordered w-full max-w-xs" />
-        <MDEditor value={value} onChange={(val) => setValue(val ?? "")} />
+    <div className="mx-auto content-center p-2 pb-5"> 
+      <div className="flex justify-center content-center mx-auto pb-2">
+          <input className="input input-bordered" value={val2} onChange={(val) => setVal2(val.target.value)} />
       </div>
-      <button onClick={() => {void saveText(val2,value);redirect('/')}
+     <div className="pb-3">
+        <MDEditor value={value} onChange={(val) => setValue(val ?? "")} />
+    </div>
+      <button className="btn btn-block text-xl" onClick={() => {void saveText(val2,value);redirect('/')}
         }>Post!</button>
     </div>
   );
