@@ -14,7 +14,8 @@ export default function MarkdownEditor() {
      <div className="pb-3">
         <MDEditor value={value} onChange={(val) => setValue(val ?? "")} />
     </div>
-      <button className="btn btn-block text-xl" onClick={() => {void saveText(val2,value);redirect('/')}
+      <button className="btn btn-block text-xl" onClick={async () => {redirect(await saveText(val2, value))}
+      /// edit
         }>Post!</button>
     </div>
   );
