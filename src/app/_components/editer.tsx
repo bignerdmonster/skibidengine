@@ -14,7 +14,12 @@ export default function MarkdownEditor() {
      <div className="pb-3">
         <MDEditor value={value} onChange={(val) => setValue(val ?? "")} />
     </div>
-      <button className="btn btn-block text-xl" onClick={async () => {redirect(await saveText(val2, value))}
+      <button className="btn btn-block text-xl" onClick={async () => {
+        const returnedThing = await saveText(val2, value); 
+        const errorResponse = returnedThing as Error; 
+        if(errorResponse.message) {console.log(errorResponse.message, errorResponse.name); redirect('/')}
+        else redirect(returnedThing as string)
+      }
       /// edit
         }>Post!</button>
     </div>
