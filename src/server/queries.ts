@@ -1,7 +1,8 @@
 import "server-only";
 import { db } from "./db";
 import { desc } from "drizzle-orm";
-import { posts } from "./db/schema"
+import { posts } from "./db/schema";
+import { upvoteTable } from "./db/schema";
 
 export type Post = {
     id: number,
@@ -9,7 +10,8 @@ export type Post = {
     user: string,
     title: string,
     content: string,
-    comments: string[] | null
+    comments: string[] | null,
+    karma: number,
 };
 
 export async function getPosts(): Promise<Post[] | null> {

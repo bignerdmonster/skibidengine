@@ -29,8 +29,18 @@ export const posts = createTable(
     user: varchar("user").notNull(),
     title: varchar("title", {length:256}).notNull(),
     content: varchar("content").notNull(),
+    karma: integer("karma").default(0).notNull(),
     comments: text("comments")
       .array()
       .default(sql`'{}'::text[]`),
   }
 );
+export const upvoteTable = createTable(
+  "userUpvotes",
+  {
+    userID: varchar("userID").primaryKey().notNull(),
+    ratings: text("ratings")
+      .array()
+      .default(sql`'{}'::text[]`),
+  }
+)
