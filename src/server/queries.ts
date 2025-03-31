@@ -10,7 +10,7 @@ export type Post = {
     user: string,
     title: string,
     content: string,
-    comments: string[] | null,
+    comments: object | null,
     karma: number,
 };
 

@@ -8,7 +8,8 @@ import {
   pgTableCreator,
   timestamp,
   varchar,
-  text
+  text,
+  json
 } from "drizzle-orm/pg-core";
 
 /**
@@ -30,17 +31,14 @@ export const posts = createTable(
     title: varchar("title", {length:256}).notNull(),
     content: varchar("content").notNull(),
     karma: integer("karma").default(0).notNull(),
-    comments: text("comments")
-      .array()
-      .default(sql`'{}'::text[]`),
+    comments: json("comments").$type<object>().default({}).notNull()
   }
 );
 export const upvoteTable = createTable(
-  "userUpvotes",
+  "userupvotes",
   {
     userID: varchar("userID").primaryKey().notNull(),
-    ratings: text("ratings")
-      .array()
-      .default(sql`'{}'::text[]`),
+    idArray: integer("idArray").array().default(sql`'{}'::integer[]`).notNull(),
+    ratingArray: integer("ratingArray").array().default(sql`'{}'::integer[]`).notNull()
   }
 )
