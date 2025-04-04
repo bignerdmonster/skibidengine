@@ -7,20 +7,20 @@ import {sql, eq} from "drizzle-orm";
 
 export async function karmaChange(postIde: number, changedValue: boolean): Promise<number | object> {
     const user = await(auth());
-    
+    console.log(postIde,changedValue);
 
     if (!user.userId) {return {error: "NotAuthorized"}};
     
     let newValue = 0;
-    if (changedValue=true) newValue=1;
-    if (changedValue=false) newValue = 0;
-    const newData = {postIde,changedValue};
+    if (changedValue==true) newValue = 1;
+    if (changedValue==false) newValue = -1;
+    const newData = {[postIde]:changedValue.valueOf()};
 
     const newKarma = await db.update(posts).set({
         karma: sql`${posts.karma} + ${newValue}`
     }).where(eq(posts.id, postIde)).returning({returnedKarma:posts.karma});
-    console.log(newKarma);
-    void await db.insert(newupvotes).values(
+    
+    void db.insert(newupvotes).values(
         {id: user.userId, twoah:newData}
     ).onConflictDoUpdate({
         target: [newupvotes.id], 
@@ -28,7 +28,7 @@ export async function karmaChange(postIde: number, changedValue: boolean): Promi
             WHEN ${newupvotes.twoah} ? ${postIde} THEN
               jsonb_set(${newupvotes.twoah}, '{${postIde}}', ${changedValue}::jsonb)
             ELSE
-              ${newupvotes.twoah} || jsonb_build_object(${postIde}::text, ${changedValue}::boolean)
+              ${newupvotes.twoah} || jsonb_build_object(${postIde}::integer, ${changedValue}::boolean)
           END`,
     }});
     try{ 
