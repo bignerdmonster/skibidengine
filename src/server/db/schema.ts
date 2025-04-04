@@ -8,9 +8,10 @@ import {
   pgTableCreator,
   timestamp,
   varchar,
-  text,
+  jsonb,
   json
 } from "drizzle-orm/pg-core";
+
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -34,11 +35,10 @@ export const posts = createTable(
     comments: json("comments").$type<object>().default({}).notNull()
   }
 );
-export const upvoteTable = createTable(
+export const newupvotes = createTable(
   "userupvotes",
   {
-    userID: varchar("userID").primaryKey().notNull(),
-    idArray: integer("idArray").array().default(sql`'{}'::integer[]`).notNull(),
-    ratingArray: integer("ratingArray").array().default(sql`'{}'::integer[]`).notNull()
+    id: varchar("id").primaryKey().notNull(),
+    twoah: jsonb("upvoteobject").$type<Record<number,boolean>>()
   }
 )

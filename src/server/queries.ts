@@ -2,7 +2,7 @@ import "server-only";
 import { db } from "./db";
 import { desc } from "drizzle-orm";
 import { posts } from "./db/schema";
-import { upvoteTable } from "./db/schema";
+//import { newupvotes } from "./db/schema";
 
 export type Post = {
     id: number,

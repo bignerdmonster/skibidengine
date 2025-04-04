@@ -2,24 +2,35 @@
 import { auth } from "@clerk/nextjs/server";
 import { db } from "~/server/db";
 import { posts } from "~/server/db/schema";
-import { upvoteTable } from "~/server/db/schema";
+import { newupvotes } from "~/server/db/schema";
 import {sql, eq} from "drizzle-orm";
 
-export async function karmaChange(postId: number, changedValue: number): Promise<number | object> {
+export async function karmaChange(postIde: number, changedValue: boolean): Promise<number | object> {
     const user = await(auth());
     
-    if (!user.userId) {return {error: "NotAuthorized"}};
 
+    if (!user.userId) {return {error: "NotAuthorized"}};
+    
+    let newValue = 0;
+    if (changedValue=true) newValue=1;
+    if (changedValue=false) newValue = 0;
+    const newData = {postIde,changedValue};
 
     const newKarma = await db.update(posts).set({
-        karma: sql`${posts.karma} + ${changedValue}`
-    }).where(eq(posts.id, postId)).returning({returnedKarma:posts.karma});
-    await db.insert(upvoteTable).values(
-        {userID: user.userId, idArray: [postId], ratingArray: [changedValue] }
+        karma: sql`${posts.karma} + ${newValue}`
+    }).where(eq(posts.id, postIde)).returning({returnedKarma:posts.karma});
+    console.log(newKarma);
+    void await db.insert(newupvotes).values(
+        {id: user.userId, twoah:newData}
     ).onConflictDoUpdate({
-        target: upvoteTable.userID, 
-        set: {userID: user.userId, idArray: sql`array_append(${upvoteTable.idArray}, ${postId})`, ratingArray: sql`array_append(${upvoteTable.ratingArray}, ${changedValue})`}
-    })
+        target: [newupvotes.id], 
+        set: {twoah: sql`CASE
+            WHEN ${newupvotes.twoah} ? ${postIde} THEN
+              jsonb_set(${newupvotes.twoah}, '{${postIde}}', ${changedValue}::jsonb)
+            ELSE
+              ${newupvotes.twoah} || jsonb_build_object(${postIde}::text, ${changedValue}::boolean)
+          END`,
+    }});
     try{ 
         const karmaObject = newKarma.pop()
         if (karmaObject == undefined) throw new Error("kill me.")

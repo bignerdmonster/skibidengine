@@ -13,7 +13,7 @@ export default function UpvoteThang({postID = 31, postKarma = 0, className="", e
 
     async function handleInputChange (value: number) {
         setbtnYesOn(value)
-        const returnedKarma = await karmaChange(postID, value)
+        const returnedKarma = await karmaChange(postID, (value===1))
         if (isNumber(returnedKarma)) {setKarmaCount(returnedKarma); console.log("number ran btw")};
         if (isError(returnedKarma)) alert(returnedKarma.error);
         console.log("theoretically this code has run")       
