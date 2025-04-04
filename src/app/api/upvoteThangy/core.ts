@@ -10,27 +10,28 @@ export async function karmaChange(postIde: number, changedValue: boolean): Promi
     console.log(postIde,changedValue);
 
     if (!user.userId) {return {error: "NotAuthorized"}};
-    
+
     let newValue = 0;
     if (changedValue==true) newValue = 1;
     if (changedValue==false) newValue = -1;
-    const newData = {[postIde]:changedValue.valueOf()};
+    const newData = {[postIde]:changedValue};
 
     const newKarma = await db.update(posts).set({
         karma: sql`${posts.karma} + ${newValue}`
     }).where(eq(posts.id, postIde)).returning({returnedKarma:posts.karma});
     
-    void db.insert(newupvotes).values(
+    const result = await db.insert(newupvotes).values(
         {id: user.userId, twoah:newData}
     ).onConflictDoUpdate({
-        target: [newupvotes.id], 
+        target: newupvotes.id, 
         set: {twoah: sql`CASE
-            WHEN ${newupvotes.twoah} ? ${postIde} THEN
-              jsonb_set(${newupvotes.twoah}, '{${postIde}}', ${changedValue}::jsonb)
+            WHEN ${newupvotes.twoah} ? ${postIde}::text THEN
+              jsonb_set(${newupvotes.twoah}, array[${postIde}::text], ${changedValue}::jsonb)
             ELSE
-              ${newupvotes.twoah} || jsonb_build_object(${postIde}::integer, ${changedValue}::boolean)
-          END`,
-    }});
+              ${newupvotes.twoah} || jsonb_build_object(${postIde}::text, ${changedValue}::boolean)
+          END`
+    }}).returning();
+    console.log(result)
     try{ 
         const karmaObject = newKarma.pop()
         if (karmaObject == undefined) throw new Error("kill me.")
@@ -41,7 +42,7 @@ export async function karmaChange(postIde: number, changedValue: boolean): Promi
 }
 export async function karmaLoad(postId: number): Promise<number> {
     const user = await(auth());
-
+    
     
     return -1
 }
