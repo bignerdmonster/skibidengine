@@ -3,7 +3,14 @@ import { auth } from "@clerk/nextjs/server";
 import { db } from "~/server/db";
 import { posts } from "~/server/db/schema";
 import { newupvotes } from "~/server/db/schema";
+import { karmaLoad } from "~/server/queries";
 import {sql, eq} from "drizzle-orm";
+
+export async function karmaFetch() {
+    const user = await(auth());
+    if (!user.userId) {return {error: "NotAuthorized"}};
+    return (await karmaLoad(user.userId));
+}
 
 export async function karmaChange(postIde: number, changedValue: boolean): Promise<number | object> {
     const user = await(auth());
@@ -31,7 +38,6 @@ export async function karmaChange(postIde: number, changedValue: boolean): Promi
               ${newupvotes.twoah} || jsonb_build_object(${postIde}::text, ${changedValue}::boolean)
           END`
     }}).returning();
-    console.log(result)
     try{ 
         const karmaObject = newKarma.pop()
         if (karmaObject == undefined) throw new Error("kill me.")
@@ -39,10 +45,4 @@ export async function karmaChange(postIde: number, changedValue: boolean): Promi
     } catch (error) {
         return {error:"AnError"}
     };
-}
-export async function karmaLoad(postId: number): Promise<number> {
-    const user = await(auth());
-    
-    
-    return -1
 }
