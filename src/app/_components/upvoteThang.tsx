@@ -1,18 +1,15 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { karmaChange } from "../api/upvoteThangy/core";
-import { karmaFetch } from "../api/upvoteThangy/core";
+import { karmaLoad } from "~/server/queries";
 type ErrorResponse = {
     error: string
 }
 export default function UpvoteThang({postID = 31, postKarma = 0, enabled=false}) {
     const [btnYesOn, setbtnYesOn] = useState(0);
     const [karmaCount, setKarmaCount] = useState(postKarma);
-    async function loadKarmaAsync() {
-        const value = await karmaFetch();
-        console.log(value)
-    };
-
+    // new from client fetch
+    
     // if ({enabled}.enabled == true) {void loadKarmaAsync(); console.log("TESTINFG!")} 
     // there's gotta be a better way to do this but I don't know it yet
     function isNumber(val: number | object): val is number {return typeof val === 'number'};
