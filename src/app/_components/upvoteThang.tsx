@@ -9,6 +9,7 @@ export default function UpvoteThang({postID = 31, postKarma = 0, enabled=false})
     const { data, error, mutate } = useKarmaData();
     const [btnYesOn, setbtnYesOn] = useState(0);
     const [karmaCount, setKarmaCount] = useState(postKarma);
+    let loading = false;
     useEffect(()=>{
         const state = data?.[postID];
         if (state === undefined) {setbtnYesOn(0)} else
@@ -24,11 +25,13 @@ export default function UpvoteThang({postID = 31, postKarma = 0, enabled=false})
     function isError(val: number | object): val is ErrorResponse {return (val as ErrorResponse).error !== undefined};
 
     async function handleInputChange (value: number) {
+        loading = true;
         setbtnYesOn(value)
         const returnedKarma = await karmaChange(postID, (value===1));
         void mutate();
         if (isNumber(returnedKarma)) {setKarmaCount(returnedKarma); console.log("number ran btw")};
         if (isError(returnedKarma)) alert(returnedKarma.error);
+        loading = false;
     };
     
     
@@ -36,7 +39,7 @@ export default function UpvoteThang({postID = 31, postKarma = 0, enabled=false})
     
     if ({enabled}.enabled == true) enabledFlag = "visible";
     
-    if (!data && !error) {
+    if (!data && !error || loading) {
         return (
             <div className= "flex grow-13 flex-col mx-5 px-5 py-10  bg-base-200 rounded-xl">
                 <span className="loading loading-spinner loading-xs"></span>
