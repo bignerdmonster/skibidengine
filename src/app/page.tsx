@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {getPosts} from "~/server/queries";
 import PostRenderer from "./_components/PostRenderer";
 import {auth} from "@clerk/nextjs/server"

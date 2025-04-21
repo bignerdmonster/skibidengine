@@ -22,7 +22,8 @@ async function postPull(ide: number): Promise<Post | null> {
     const post = await db.query.posts.findFirst({where:(model, {eq}) => eq(model.id, ide)});
     if (post) {return post} else {return null}
 }
-async function karmaPull(user:string) {
+async function karmaPull(user:string|null) {
+    if (user == null) return {};
     const upvoteObject = await db.query.newupvotes.findFirst({where: eq(newupvotes.id, user)});
     if (upvoteObject) return upvoteObject.twoah; else return {}
 }

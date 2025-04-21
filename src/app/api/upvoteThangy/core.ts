@@ -3,7 +3,6 @@ import { auth } from "@clerk/nextjs/server";
 import { db } from "~/server/db";
 import { posts, newupvotes } from "~/server/db/schema";
 import {sql, eq} from "drizzle-orm";
-import { karmaLoad } from "~/server/queries";
 
 
 export async function karmaChange(postIde: number, changedValue: boolean): Promise<number | object> {
@@ -32,8 +31,6 @@ export async function karmaChange(postIde: number, changedValue: boolean): Promi
               ${newupvotes.twoah} || jsonb_build_object(${postIde}::text, ${changedValue}::boolean)
           END`
     }}).returning();
-    const porcipuine = await karmaLoad(user.userId);
-    console.log(porcipuine);
     try{ 
         const karmaObject = newKarma.pop()
         if (karmaObject == undefined) throw new Error("kill me.")

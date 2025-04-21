@@ -1,6 +1,6 @@
 import MarkdownRenderer from "./mdRender";
 import UpvoteThang from "./upvoteThang";
-import {Post} from "~/server/queries";
+import type {Post} from "~/server/queries";
 
 
 type PostObject = {post:Post,enabledFlag:boolean}
