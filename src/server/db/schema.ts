@@ -3,13 +3,14 @@
 
 import { sql } from "drizzle-orm";
 import {
-  index,
   integer,
   pgTableCreator,
   timestamp,
   varchar,
-  text
+  jsonb,
+  json
 } from "drizzle-orm/pg-core";
+
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -29,8 +30,14 @@ export const posts = createTable(
     user: varchar("user").notNull(),
     title: varchar("title", {length:256}).notNull(),
     content: varchar("content").notNull(),
-    comments: text("comments")
-      .array()
-      .default(sql`'{}'::text[]`),
+    karma: integer("karma").default(0).notNull(),
+    comments: json("comments").$type<object>().default({}).notNull()
   }
 );
+export const newupvotes = createTable(
+  "userupvotes",
+  {
+    id: varchar("id").primaryKey().notNull(),
+    twoah: jsonb("upvoteobject").$type<Record<number,boolean>>()
+  }
+)
