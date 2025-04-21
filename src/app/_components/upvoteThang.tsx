@@ -6,14 +6,15 @@ type ErrorResponse = {
     error: string
 }
 export default function UpvoteThang({postID = 31, postKarma = 0, enabled=false}) {
-    const { data, mutate } = useKarmaData();
+    const { data, error, mutate } = useKarmaData();
     const [btnYesOn, setbtnYesOn] = useState(0);
     const [karmaCount, setKarmaCount] = useState(postKarma);
     useEffect(()=>{
-        if (!data || data[postID] === undefined) {setbtnYesOn(0)} else
-        if (data![postID] === true) {setbtnYesOn(1)} else
-        if (data![postID] === false) {setbtnYesOn(-1)};
-    })
+        const state = data?.[postID];
+        if (state === undefined) {setbtnYesOn(0)} else
+        if (state === true) {setbtnYesOn(1)} else
+        if (state === false) {setbtnYesOn(-1)};
+    }, [data, postID])
     
     // new from client fetch
     
@@ -35,6 +36,16 @@ export default function UpvoteThang({postID = 31, postKarma = 0, enabled=false})
     
     if ({enabled}.enabled == true) enabledFlag = "visible";
     
+    if (!data && !error) {
+        return (
+            <div className= "flex grow-13 flex-col mx-5 px-5 py-10  bg-base-200 rounded-xl">
+                <span className="loading loading-spinner loading-xs"></span>
+                <h1 className="text-white py-6 text-center">{karmaCount}</h1>
+                <span className="loading loading-spinner loading-xs"></span>
+            </div>
+        )
+    }
+
     return (
         <div className= "flex grow-13 flex-col mx-5 px-5 py-10  bg-base-200 rounded-xl">
             <input type="radio" name={`radio-${postID}`}  
